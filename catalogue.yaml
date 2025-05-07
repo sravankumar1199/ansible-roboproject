@@ -73,7 +73,7 @@
      state: installed
 
   - name: load catalogue data  ## loading catalogue data ##
-    ansible.builtin.command: mongo "mongodb://172.31.26.225:27017/catalogue" /app/schema/catalogue.js
+    ansible.builtin.command: mongo --host 172.31.26.225 --port 27017 /app/schema/catalogue.js
 
   - name: restart catalogue ## after completed entire catalogue process restarted ##
     ansible.builtin.service:
