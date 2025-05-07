@@ -20,7 +20,7 @@
       path: /etc/mongod.conf
       regexp: '127.0.0.1'
       replace: '0.0.0.0'
-  - name: restart mongod ## restarted mongod after changes in mongodb restart is must ##
+  - name: restart mongodb ## restarted mongod after changes in mongodb restart is must ##
     ansible.builtin.service:
       name: restart mongod
       state: restarted
