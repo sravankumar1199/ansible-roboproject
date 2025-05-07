@@ -24,8 +24,8 @@
   - name: check /app directory exist or not
     ansible.builtin.stat: ## checks /app directory exist or not using ## stat ##
       path: /app
-    register: "output: {{directory}}"
+    register: directory
 
   - name: print the directory stats ## printing output of directory ##
     ansible.builtin.debug:
-     msg: "output: {{directory}}"  
+     msg: "output: {{directory}}"
