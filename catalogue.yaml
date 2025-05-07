@@ -35,4 +35,15 @@
     name: create /app directory
     ansible.builtin.file: ## directory creating module is [ file ] ##
       path: /app
-      state: directory    
+      state: directory
+
+  - name: download catalogue application ## application code downloading in tmp directory ##
+    ansible:builtin.get_url: ## get_url a module in Ansible used to download files from the internet like http or https or ftp many more ##
+      url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+      dest: /tmp
+
+  - name: exact catalogue application
+    ansible.builtin.unarchive: ## unarchive is used for unzip application ## 
+      src: /tmp/catalogue.zip ## which file is to exact that file give in src ##
+      dest: /app ## exact in /app directory##
+      remote_src: yes            
