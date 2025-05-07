@@ -77,6 +77,6 @@
 
   - name: restart catalogue ## after completed entire catalogue process restarted ##
     ansible.builtin.service:
-     name: catalogue
-     state: installed
-     enabled: yes         
+      name: catalogue
+      state: restarted
+      enabled: yes         
