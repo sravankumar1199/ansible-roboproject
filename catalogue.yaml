@@ -1,0 +1,31 @@
+- name: Install catalogue component
+  hosts: catalogue
+  become: yes
+  tasks:
+  - name: setup NPM source ## NPM node package manager ##
+    ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
+
+  - name: Install nodejs
+    ansible.builtin.yum:
+      name: nodejs
+      state: installed
+
+  - name: check roboshop user exist or not
+    ansible.builtin.command: id roboshop
+    register: output ## register is variable, id roboshop output stores in register output ##
+    ignore_error: true
+
+  - when: output.rc ! = 0
+    name: create user roboshop ## creating roboshop user ##
+    become: yes
+    ansible.builtin.user:
+      name: roboshop
+
+  - name: check /app directory exist or not
+    ansible.builtin.stat: ## checks /app directory exist or not using ## stat ##
+      path: /app
+    register: "output: {{directory}}"
+
+  - name: print the directory stats ## printing output of directory ##
+    ansible.builtin.debug:
+     msg: "output: {{directory}}"  
