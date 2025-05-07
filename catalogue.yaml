@@ -38,7 +38,7 @@
       state: directory
 
   - name: download catalogue application ## application code downloading in tmp directory ##
-    ansible:builtin.get_url: ## get_url a module in Ansible used to download files from the internet like http or https or ftp many more ##
+    ansible.builtin.get_url: ## get_url a module in Ansible used to download files from the internet like http or https or ftp many more ##
       url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
       dest: /tmp
 
