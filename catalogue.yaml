@@ -15,7 +15,7 @@
     register: out ## register is variable, id roboshop output stores in register output ##
     ignore_errors: true
 
-  - when: output.rc ! = 0
+  - when: output.rc! = 0
     name: create user roboshop ## creating roboshop user ##
     become: yes
     ansible.builtin.user:
