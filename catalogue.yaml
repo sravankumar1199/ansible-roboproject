@@ -19,7 +19,7 @@
   - when: out.rc != 0
     name: create user roboshop ## creating roboshop user ##
     become: yes
-    ansible.builtin.user:
+    ansible.builtin.user: ## user means user creation module ##
       name: roboshop
 
   - name: check /app directory exist or not
@@ -31,7 +31,7 @@
     ansible.builtin.debug:
      msg: "output: {{directory}}"
 
-  - when: directory.stat.exists ==false ## In ansible server catalogue configar output is stat:exists: == false then creats directory ## 
+  - when: directory.stat.exists == false ## In ansible server catalogue configar output is stat:exists: == false then creats directory ## 
     name: create /app directory
     ansible.builtin.file: ## directory creating module is [ file ] ##
       path: /app
@@ -42,8 +42,41 @@
       url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
       dest: /tmp
 
-  - name: exact catalogue application
+  - name: exact catalogue application ## use [application or artifact] both are same meaning ## 
     ansible.builtin.unarchive: ## unarchive is used for unzip application ## 
       src: /tmp/catalogue.zip ## which file is to exact that file give in src ##
       dest: /app ## exact in /app directory##
-      remote_src: yes            
+      remote_src: yes
+
+  - name: install dependencies ## npm dependencies installing in /app directory ##
+    ansible.builtin.command: npm install
+    args:
+      chdir: /app
+
+  - name: copy catalogue service ## coping catalogue repo form catalogue service file to /etc/systemd/system/catalogue.service ## 
+    ansible.builtin.copy:
+      src: catalogue service
+      dest: /etc/systemd/system/catalogue.service
+
+  - name: deamon reload  ## deamon reload ##
+    ansible.builtin.systemd:
+     deamon_reload: true
+
+  - name: copy mongo repo to yum.repos.d 
+    ansible.builtin.copy: ## coping repo from mongodb.repo to /etc/yum.repos.d/mongo.repo ## 
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
+  - name: install mongodb ## install mongodb ##
+    ansible.builtin.yum:
+     name: mongodb-org-shell
+     state: installed
+
+  - name: load catalogue data ## loading catalogue data ##
+    ansible.builtin.command: mongo --host 172.31.26.225 < /app/schema/catalogue.js
+
+  - name: restart catalogue ## after completed entire catalogue process restarted ##
+    ansible.builtin.service:
+     name: catalogue
+     state: installed
+     enabled: yes         
