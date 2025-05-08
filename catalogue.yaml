@@ -81,7 +81,7 @@
       state: restarted
       enabled: yes
 
-  - name: copy roboshop conf
+  - name: copy roboshop conf  ## roboshop conf file copying from roboshop.conf ##
     ansible.builtin.copy:
       src: roboshop.conf
       dest: /etc/nginx/default.d/roboshop.conf
