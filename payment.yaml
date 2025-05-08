@@ -28,7 +28,7 @@
       dest: directory
 
   - name: print the directory stats
-    ansible.builtin.stat:
+    ansible.builtin.debug:
       msg: "output: {{directory}}"
 
   - when: directory.stat.exists == False
