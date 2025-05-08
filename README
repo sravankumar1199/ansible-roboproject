@@ -23,5 +23,8 @@
   ## using shell module in playbook ##
   for ex: ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
    using double codes is must in shell module ... "" .....
+
+## After completed all server configaration ##
+  again open roboshop.conf file and web.yaml configar and save again run web.yaml file in ansible-server in superputty. 
    
               
