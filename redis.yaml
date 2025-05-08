@@ -1,0 +1,29 @@
+- name: install redis component ## installing redis component ##
+  hosts: redis
+  become: yes
+  tasks:
+  - name: install redis repo ## installing redis repo from roboshop project ##
+    ansible.builtin.yum:
+      name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+      state: installed
+      disable_gpg_check: true ## disabled gpg errors ##
+
+  - name: enable redis 6.2 ## enabled redis 6.2 version ##
+    ansible.builtin.command: yum module enable redis:remi-6.2 -y
+
+  - name: install redis ## installing redis ##
+    ansible.builtin.yum:
+      name: redis
+      state: installed
+
+  - name: enable remote connections ## updating localhost address to all servers access ##
+    ansible.builtin.replace:
+      path: /etc/redis.conf
+      regexp: '127.0.0.1'
+      replace: '0.0.0.0'
+
+  - name: start and enable redis ## starting and enabled redis ##
+    ansible.builtin.service:
+      name: redis
+      state: restarted
+      enabled: yes
