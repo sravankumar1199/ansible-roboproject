@@ -1,3 +1,27 @@
 ###### Roboshop Project with Ansible Configration #######
 
-[1] mongodb Configration
+## In playbook using args and chdir modules in playbooks ##
+    args and chdir using for inside /app directory configar
+
+## If in case git pull command not appears in localchanges in server in superputty ##
+   use... git stash save "Stashing local changes before pull"
+
+## using ansible.builtin.unarchive module in playbook ##
+    using unarchive module for at a time ex: cart application download and extract at a time ##
+
+## using loop module in playbook ##
+    - name: install python
+    ansible.builtin.yum:
+      name: "{{item}}"
+      state: installed
+    loop:
+    - python36
+    - gcc
+    - python3-devel
+ one by one execute ex python36,gcc,python-deve1.
+
+  ## using shell module in playbook ##
+  for ex: ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
+   using double codes is must in shell module ... "" .....
+   
+              
