@@ -19,10 +19,10 @@
   - name: enable remote connections ## updating localhost address to all servers access ##
     ansible.builtin.replace:
       path: /etc/redis.conf
-      regexp: '127.0.0.1'
+      regexp: '127.0.0.1' ## this is localhost address ##
       replace: '0.0.0.0'
 
-  - name: start and enable redis ## starting and enabled redis ##
+  - name: start and enable redis ## starting and enabled redis ####
     ansible.builtin.service:
       name: redis
       state: restarted
