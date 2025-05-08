@@ -73,10 +73,21 @@
      state: installed
 
   - name: load catalogue data  ## loading catalogue data ##
-    ansible.builtin.command: mongo --host 172.31.26.22 < /app/schema/catalog.js
+    ansible.builtin.command: mongo--host172.31.26.22</app/schema/catalog.js
 
   - name: restart catalogue ## after completed entire catalogue process restarted ##
     ansible.builtin.service:
       name: catalogue
       state: restarted
-      enabled: yes         
+      enabled: yes
+
+  - name: copy roboshop conf
+    ansible.builtin.copy:
+      src: roboshop.conf
+      dest: /etc/nginx/default.d/roboshop.conf
+
+  - name: restart nginx
+    ansible.builtin.service:
+      name: nginx
+      state: restarted
+            
